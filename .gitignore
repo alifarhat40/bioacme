@@ -1,1 +1,138 @@
-/fbsdcme/bin/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Binaries, zips
+*.exe
+*.zip
+
+# Distribution / packaging
+.Python
+env/
+_build/
+build/
+develop-eggs/
+data/
+dist/
+downloads/
+eggs/
+#lib/
+#lib64/
+parts/
+sdist/
+var/
+tmp/
+temp/
+Temp/
+/site
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+*.egg
+.installed.cfg
+MANIFEST
+
+# Project files
+.project
+.pydevproject
+.pydevproject*
+.pydevproject.*
+.pydevproject.bak*
+.settings
+.vscode
+.spyproject*
+*.dot
+*.swp
+vim
+vimrc
+.ycm_extra_conf.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Rope project settings
+.ropeproject
+
+# Logs
+pip-log.txt
+pip-delete-this-directory.txt
+*.log
+*.log*
+
+# DB and Django
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Unit test and coverage reports
+htmlcov/
+dmypy.json
+nosetests.xml
+coverage.xml
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.mypy_cache/
+.dmypy.json
+*.cover
+.hypothesis/
+.pytest_cache/
+.flake8
+
+# Translations
+*.mo
+*.pot
+
+# Sphinx documentation
+docs/_build/
+docs/build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# Backup and temporarily files
+*.*~
+*.bak
+*.bkp
+*.tmp
+*.current
+*.old
+*.orig
+*.*orig
+*OLD*
+*.tmp.*
+
+# Configuration files - not the templates
+/.pylint.d
+.idea/
