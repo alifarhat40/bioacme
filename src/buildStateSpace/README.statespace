@@ -1,0 +1,30 @@
+Format of initial condition file:
+
+eg:
+$cat pdv-eg.txt
+6 1
+3 0 0 0 0 0, 1
+
+The first line includes two integers, the first is the total number of species.
+In this case, the number is 6. The second is the number of total states contained
+in this file. In this case, it is 1.
+
+From the second line to the end of the file, initial states and probability of 
+this state are listed each a line. State and probability are seperated with a 
+comma and white space, numbers in each state are seperated with white space.
+
+For the optimization of storage, two distinct versions are developed with different
+data type in states, one is "unsigned char" which occupies one byte of memory, and
+another is "unsigned short" that occupies two bytes. They are named after their
+data length, buildStateSpace.1 and buildStateSpace.2, respectively.
+
+
+Extensions of buildStateSpace binary files
+
+1tso: time and space optimized
+1:    use "unsigned char" type in class State
+2:    use "unsigned short" type in class State
+
+The extension ".EM" stands for external memory. The application put large stack
+into external memory - hard disk - to save memory. This is efficient for many cases
+that generate large state spaces.
