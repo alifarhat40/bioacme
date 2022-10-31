@@ -15,12 +15,7 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_COLOR_MAKEFILE ON)
-
-# Remove 'lib' prefix for shared libraries on Windows
-if(WIN32)
-  set(CMAKE_SHARED_LIBRARY_PREFIX "")
-endif()
+set(CMAKE_COLOR_MAKEFILE   ON)
 
 add_subdirectory(src/mxexp)
 add_subdirectory(src/SOR)
