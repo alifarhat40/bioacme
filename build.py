@@ -16,17 +16,20 @@ PROJECT_SOURCE = Path(__file__).resolve().parent
 
 PROJECT_BUILD_SOURCE = PROJECT_SOURCE / "build"
 
+
 def configure_cmake() -> None:
     """Configure CMake."""
     environment_variable = dict(list(os.environ.items()))
     cmd = [CMAKE_DEFAULT_EXECUTABLE, "-S", str(PROJECT_SOURCE), "-B", "build"]
     subprocess.call(cmd, cwd=PROJECT_SOURCE, env=environment_variable)
 
+
 def run_make() -> None:
     """Run CMake build."""
     env = dict(list(os.environ.items()))
     cmd = [CMAKE_DEFAULT_EXECUTABLE, "--build", "build"]
     subprocess.call(cmd, cwd=PROJECT_SOURCE, env=env)
+
 
 def build(setup_kwargs: Dict[str, Any]) -> None:
     """Build executables."""
@@ -36,7 +39,7 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
     run_make()
 
     src_dir = PROJECT_BUILD_SOURCE / "bin"
-    dest_dir = Path("fbsdcme") / "bin"
+    dest_dir = Path("acme") / "bin"
 
     # Delete C-extensions copied in previous runs, just in case.
     remove_files(dest_dir, "*")

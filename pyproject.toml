@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "fbsdcme"
+name = "acme"
 version = "0.1.0"
 description = ""
 authors = [
     "João Carlos Rodrigues Jr. <jc.rodrigues1997@gmail.com>",
     "Hendrik Dumith Louzada <hendriklouzada@gmail.com>"
 ]
-include = [{ path = "fbsdcme/bin/*", format = ["sdist", "wheel"]}]
+include = [{ path = "acme/bin/*", format = ["sdist", "wheel"]}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -19,11 +19,11 @@ requires = ["poetry-core>=1.0.0", "cmake"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-build_state_space_bfs = "fbsdcme.__main__:build_state_space_bfs"
-build_state_space_dfs = "fbsdcme.__main__:build_state_space_dfs"
-mxexp = "fbsdcme.__main__:mxexp"
-net_2_matrix = "fbsdcme.__main__:net_2_matrix"
-ssor = "fbsdcme.__main__:ssor"
+build_state_space_bfs = "acme.__main__:build_state_space_bfs"
+build_state_space_dfs = "acme.__main__:build_state_space_dfs"
+mxexp = "acme.__main__:mxexp"
+net_2_matrix = "acme.__main__:net_2_matrix"
+ssor = "acme.__main__:ssor"
 
 [tool.poetry.build]
 generate-setup-file = false
