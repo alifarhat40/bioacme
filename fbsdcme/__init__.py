@@ -1,27 +1,36 @@
-import os, sys, subprocess
+import subprocess
+from pathlib import Path
 
 __version__ = "0.1.0"
 
 
 def _bin_path(program):
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)), "bin", program)
+    return Path(__file__).resolve().parent / "bin" / program
 
 
-def _run(program):
-    sys.exit(subprocess.call([_bin_path(program), *sys.argv[1:]]))
+def _run(program, *pargs, input=None, **pkwargs):
+    args = [_bin_path(program)]
+    args.extend(pargs)
+    for param, value in pkwargs.items():
+        args.append("--" + param if len(param) > 1 else "-" + param)
+        args.append(str(value))
+    return subprocess.run(args, input=input, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
-def stater_space_scheme20():
-    _run("stater_space_scheme20")
+def build_state_space_bfs(*args, **kwargs):
+    return _run("build_state_space_bfs", *args, **kwargs)
 
 
-def prop_mx_scheme20():
-    _run("prop_mx_scheme20")
+def build_state_space_dfs(*args, **kwargs):
+    return _run("build_state_space_dfs", *args, **kwargs)
 
 
-def ss_prob_dist_scheme20():
-    _run("ss_prob_dist_scheme20")
+def mxexp(*args, **kwargs):
+    return _run("mxexp", *args, **kwargs)
 
 
-def mxexpo():
-    _run("mxexpo")
+def net_2_matrix(*args, **kwargs):
+    return _run("net_2_matrix", *args, **kwargs)
+
+def ssor(*args, **kwargs):
+    return _run("ssor", *args, **kwargs)
