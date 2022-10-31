@@ -16,7 +16,7 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
     skbuild.setup(**setup_kwargs, script_args=["build_ext"])
 
     src_dir = Path(skbuild.constants.CMAKE_INSTALL_DIR()) / "bin"
-    dest_dir = Path("bin")
+    dest_dir = Path("fbsdcme") / "bin"
 
     # Delete C-extensions copied in previous runs, just in case.
     remove_files(dest_dir, "*")
