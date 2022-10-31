@@ -13,10 +13,9 @@ python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
-scikit-build = "^0.15.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "scikit-build", "cmake", "ninja"]
+requires = ["poetry-core>=1.0.0", "cmake"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
@@ -25,3 +24,7 @@ build_state_space_dfs = "fbsdcme.__main__:build_state_space_dfs"
 mxexp = "fbsdcme.__main__:mxexp"
 net_2_matrix = "fbsdcme.__main__:net_2_matrix"
 ssor = "fbsdcme.__main__:ssor"
+
+[tool.poetry.build]
+generate-setup-file = false
+script = "build.py"

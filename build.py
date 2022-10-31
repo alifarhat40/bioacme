@@ -1,21 +1,41 @@
 """Build script."""
 
+import os
 import shutil
+import subprocess
 from distutils import log as distutils_log
 from pathlib import Path
 from typing import Any, Dict
 
-import skbuild
-import skbuild.constants
-
 __all__ = ("build",)
 
+CMAKE_DEFAULT_EXECUTABLE = "cmake"
+"""Default path to CMake executable."""
+
+PROJECT_SOURCE = Path(__file__).resolve().parent
+
+PROJECT_BUILD_SOURCE = PROJECT_SOURCE / "build"
+
+def configure_cmake() -> None:
+    """Configure CMake."""
+    environment_variable = dict(list(os.environ.items()))
+    cmd = [CMAKE_DEFAULT_EXECUTABLE, "-S", str(PROJECT_SOURCE), "-B", "build"]
+    subprocess.call(cmd, cwd=PROJECT_SOURCE, env=environment_variable)
+
+def run_make() -> None:
+    """Run CMake build."""
+    env = dict(list(os.environ.items()))
+    cmd = [CMAKE_DEFAULT_EXECUTABLE, "--build", "build"]
+    subprocess.call(cmd, cwd=PROJECT_SOURCE, env=env)
 
 def build(setup_kwargs: Dict[str, Any]) -> None:
-    """Build C-extensions."""
-    skbuild.setup(**setup_kwargs, script_args=["build_ext"])
+    """Build executables."""
 
-    src_dir = Path(skbuild.constants.CMAKE_INSTALL_DIR()) / "bin"
+    configure_cmake()
+
+    run_make()
+
+    src_dir = PROJECT_BUILD_SOURCE / "bin"
     dest_dir = Path("fbsdcme") / "bin"
 
     # Delete C-extensions copied in previous runs, just in case.
