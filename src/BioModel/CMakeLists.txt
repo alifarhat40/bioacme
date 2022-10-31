@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION 3.8)
 project(BioModel)
 
 find_package(LIBSBML REQUIRED)
-find_package(LibXml2 REQUIRED)
-find_package(BZ2 REQUIRED)
-find_package(ZLIB REQUIRED)
 
 include_directories("${LIBSBML_INCLUDE_DIR}")
 
@@ -35,8 +32,6 @@ add_library(${PROJECT_NAME}
     Stoichiometry.h
 )
 
-target_link_libraries(${PROJECT_NAME} ${LIBSBML_LIBRARY} ${LIBXML2_PATH})
-target_link_libraries(${PROJECT_NAME} ${LIBSBML_LIBRARY} ${LIBBZ2_PATH})
-target_link_libraries(${PROJECT_NAME} ${LIBSBML_LIBRARY} ${ZLIB_PATH})
+target_link_libraries(${PROJECT_NAME} ${LIBSBML_LIBRARY})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_INSTALL_PREFIX})
