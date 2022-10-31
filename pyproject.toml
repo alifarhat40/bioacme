@@ -2,14 +2,26 @@
 name = "fbsdcme"
 version = "0.1.0"
 description = ""
-authors = ["João Carlos Rodrigues Jr. <jc.rodrigues1997@gmail.com>"]
+authors = [
+    "João Carlos Rodrigues Jr. <jc.rodrigues1997@gmail.com>",
+    "Hendrik Dumith Louzada <hendriklouzada@gmail.com>"
+]
+include = [{ path = "fbsdcme/bin/*", format = ["sdist", "wheel"]}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+scikit-build = "^0.15.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.0.0", "scikit-build", "cmake", "ninja"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+build_state_space_bfs = "fbsdcme.__main__:build_state_space_bfs"
+build_state_space_dfs = "fbsdcme.__main__:build_state_space_dfs"
+mxexp = "fbsdcme.__main__:mxexp"
+net_2_matrix = "fbsdcme.__main__:net_2_matrix"
+ssor = "fbsdcme.__main__:ssor"
