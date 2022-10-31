@@ -15,6 +15,7 @@ __pycache__/
 .Python
 env/
 _build/
+_skbuild/
 build/
 develop-eggs/
 data/
