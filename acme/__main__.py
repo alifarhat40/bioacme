@@ -9,11 +9,11 @@ from acme import (_bin_path, _BUILD_STATE_SPACE_BFS,
 
 sanatize_name = lambda name: name.replace("_", "").lower()
 
-FUNC_NAMES = {sanatize_name(name) for name in (_BUILD_STATE_SPACE_BFS,
-                                                  _BUILD_STATE_SPACE_DFS,
-                                                  _MXEXP,
-                                                  _NET_2_MATRIX,
-                                                  _SSOR)}
+FUNC_NAMES = {sanatize_name(name): name for name in (_BUILD_STATE_SPACE_BFS,
+                                                     _BUILD_STATE_SPACE_DFS,
+                                                     _MXEXP,
+                                                     _NET_2_MATRIX,
+                                                     _SSOR)}
 
 
 def _run(name, args):
