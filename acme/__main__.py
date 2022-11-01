@@ -1,7 +1,19 @@
 import sys
 import subprocess
 
-from acme import _bin_path
+from acme import (_bin_path, _BUILD_STATE_SPACE_BFS, 
+                             _BUILD_STATE_SPACE_DFS,
+                             _MXEXP,
+                             _NET_2_MATRIX, 
+                             _SSOR)
+
+sanatize_name = lambda name: name.replace("_", "").lower()
+
+FUNC_NAMES = {sanatize_name(name) for name in (_BUILD_STATE_SPACE_BFS,
+                                                  _BUILD_STATE_SPACE_DFS,
+                                                  _MXEXP,
+                                                  _NET_2_MATRIX,
+                                                  _SSOR)}
 
 
 def _run(name, args):
@@ -9,38 +21,32 @@ def _run(name, args):
 
 
 def build_state_space_bfs():
-    _run("build_state_space_bfs", sys.argv[1:])
+    _run(_BUILD_STATE_SPACE_BFS, sys.argv[1:])
 
 
 def build_state_space_dfs():
-    _run("build_state_space_dfs", sys.argv[1:])
+    _run(_BUILD_STATE_SPACE_DFS, sys.argv[1:])
 
 
 def mxexp():
-    _run("mxexp", sys.argv[1:])
+    _run(_MXEXP, sys.argv[1:])
 
 
 def net_2_matrix():
-    _run("net_2_matrix", sys.argv[1:])
+    _run(_NET_2_MATRIX, sys.argv[1:])
 
 
 def ssor():
-    _run("ssor", sys.argv[1:])
+    _run(_SSOR, sys.argv[1:])
 
 
 def main():
-    name = sys.argv[1]
+    name = sanatize_name(sys.argv[1])
     args = sys.argv[2:]
-    if name in (
-        "build_state_space_bfs",
-        "build_state_space_dfs",
-        "mxexp",
-        "net_2_matrix",
-        "ssor",
-    ):
-        _run(name, args)
-    else:
-        raise ValueError("Unknown command: " + name)
+    try:
+        _run(FUNC_NAMES[name], args)
+    except KeyError:
+        raise ValueError(f"Unknown command: {name}")
 
 
 if __name__ == "__main__":

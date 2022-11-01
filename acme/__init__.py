@@ -3,6 +3,12 @@ from pathlib import Path
 
 __version__ = "0.1.0"
 
+_BUILD_STATE_SPACE_BFS = "buildStateSpace_BFS"
+_BUILD_STATE_SPACE_DFS = "buildStateSpace_DFS"
+_MXEXP = "mxexp"
+_NET_2_MATRIX = "net2matrix"
+_SSOR = "ssor"
+
 
 def _bin_path(program):
     return Path(__file__).resolve().parent / "bin" / program
@@ -18,19 +24,16 @@ def _run(program, *pargs, input=None, **pkwargs):
 
 
 def build_state_space_bfs(*args, **kwargs):
-    return _run("build_state_space_bfs", *args, **kwargs)
-
+    return _run(_BUILD_STATE_SPACE_BFS, *args, **kwargs)
 
 def build_state_space_dfs(*args, **kwargs):
-    return _run("build_state_space_dfs", *args, **kwargs)
-
+    return _run(_BUILD_STATE_SPACE_DFS, *args, **kwargs)
 
 def mxexp(*args, **kwargs):
-    return _run("mxexp", *args, **kwargs)
-
+    return _run(_MXEXP, *args, **kwargs)
 
 def net_2_matrix(*args, **kwargs):
-    return _run("net_2_matrix", *args, **kwargs)
+    return _run(_NET_2_MATRIX, *args, **kwargs)
 
 def ssor(*args, **kwargs):
-    return _run("ssor", *args, **kwargs)
+    return _run(_SSOR, *args, **kwargs)
