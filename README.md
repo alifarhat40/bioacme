@@ -169,7 +169,7 @@ the corresponding state in the state space. Only the first line is exceptional,
 which is always "1" indicating the summation of the rest of the probability
 vector. 
 
-### 5: Time evolution of dCME probability distribution (landscape) 
+### Step 5: Time evolution of dCME probability distribution (landscape) 
 
 Not only steady-state distribution, but also the time evolution of dCME
 probability landscape can be calculated. Program `mxexp` is provided with this
