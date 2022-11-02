@@ -50,11 +50,13 @@ def ssor():
 
 def main():
     name = sanatize_name(sys.argv[1])
-    args = sys.argv[2:]
     try:
-        _run(FUNC_NAMES[name], args)
-    except KeyError as e:
-        raise ValueError(f"Unknown command: {name}") from e
+        sanatized_name = FUNC_NAMES[name]
+    except KeyError:
+        print(f"Unknown command: {name}", file=sys.stderr)
+        exit(1)
+    args = sys.argv[2:]
+    _run(sanatized_name, args)
 
 
 if __name__ == "__main__":
