@@ -39,7 +39,7 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
     run_make()
 
     src_dir = PROJECT_BUILD_SOURCE / "bin"
-    dest_dir = PROJECT_SOURCE / "acme" / "bin"
+    dest_dir = PROJECT_SOURCE / "bioacme" / "bin"
 
     # Delete C-extensions copied in previous runs, just in case.
     remove_files(dest_dir, "*")

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(acme)
+project(bioacme)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -15,7 +15,7 @@ if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif()
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_COLOR_MAKEFILE   ON)
+set(CMAKE_COLOR_MAKEFILE ON)
 
 add_subdirectory(src/mxexp)
 add_subdirectory(src/SOR)
