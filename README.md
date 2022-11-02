@@ -12,9 +12,9 @@ Chicago, IL
 ## Requirements
 We currently support windows, linux and macos on python 3.10 and
 above. This package wraps old fortran code, that can be tricky
-to get compiled, so when you install it you should be downloading
-a wheel that contains all the compiled binaries. If you want to
-build it yourself, read the [build](#building-from-source) section.
+to get compiled, so when you install it, all the compiled binaries
+are downloaded for you. If you want to build it yourself, read the 
+[build](#building-from-source) section.
 
 ## Installation
 We recomend using a virtual environment to install the package.
@@ -32,20 +32,20 @@ $ pip install bioacme
 #### SBML of the reaction network
 
 SBML format of level 2 version 1 is currently supported. The `buildStateSpace`
-programs receive a SBML file as input, and parse all reaction network
+programs receive an SBML file as input, and parse all reaction network
 information, including molecular species, reactions, parameters, kinetic laws
-for each reactions, as well as stoichiometry matrix of the network, for later
+for each reactions, as well as the stoichiometry matrix of the network, for later
 use in enumerating the state space. 
    
-**IT IS IMPORTANT TO MAKE SURE THE SBML FILE FORMAT IS VALID AND CORRECT,** 
+**IT IS IMPORTANT TO MAKE SURE THAT THE SBML FILE FORMAT IS VALID AND CORRECT,** 
 **IN ORDER FOR THE `buildStateSpace` PROGRAMS TO WORK PROPERLY.**
 
 #### Initial condition file
 
-Initial condition file contains the information of the initial states that the
+This file contains the information of the initial states that the
 `buildStateSpace` programs require in order to enumerate the state space,
-applying the FBS-dCME method. The initial condition file is stored in a pure
-text file, which should be organized as in the example bellow:
+applying the FBS-dCME method. It is a pure text file, which should be in the
+same format as in the example bellow:
 
 ```bash
 $ cat init.txt
@@ -55,24 +55,25 @@ $ cat init.txt
 
 The first line always includes two integer numbers. The first number indicates
 how many molecular species there are in the network, and the second number
-indicates how many initial states there are in this initial condition file. In
-principle the initial condition could be a distribution containing multiple
-micro-states and each with different probabilities, so in that case the initial
-condition file can contain all micro-states in the distribution with each state
-and its corresponding probability occupies one line. But, in most cases, an
-initial condition has only one micro-state in it, like the above example initial
-file. 
+indicates how many initial states there are in this initial condition.
 
-The second line of the above initial file is the initial micro-state and its
-probability. The numbers in micro-states are integers representing the copy
-number of each species which is in the order that they appear in the SBML
-species list. 
+The second line in this example represents the only initial micro-state and its
+probability.  The numbers before the comma (the micro-state) are integers
+representing the copy number of each species, in the same order they appear in
+the SBML species list. 
+
+This initial condition could also be a distribution of multiple micro-states,
+each with different probabilities. In that case, the file would contain all
+micro-states in the distribution, with each micro-state and its corresponding
+probability occupying one line. But usually the initial condition has only one
+micro-state in it, such as in this example.
+
 
 ### Step 2: Finitely Buffered Optimal Statespace Enumeration
 
 #### Algorithms
 
-The detailed descriptions for the algorithm should be referred to following
+The detailed descriptions for the algorithms can be found in the following
 published papers:
 
 > Youfang Cao and Jie Liang, Optimal enumeration of state space of finitely
@@ -88,10 +89,10 @@ published papers:
 Two different flavors of state space enumeration are implemented by using
 *Breadth-First-Search* (**BFS**) and *Depth-First-Search* (**DFS**) network
 traversal algorithms, respectively. The enumerated state spaces are exactly the
-same by using either of two programs. The only difference is the order of the
-states when enumerated. One command line example of state space enumeration
-using `buildStateSpace_DFS` is given below. The usage of the **BFS** version is
-the same, but called as `buildStateSpace_BFS`. 
+same by using either one of the two programs. The only difference is the order
+of the states when enumerated. One command line example of state space
+enumeration using `buildStateSpace_DFS` is given below. The usage of the **BFS**
+version is the same, but called as `buildStateSpace_BFS`. 
 
 ```
 Usage:
@@ -114,11 +115,11 @@ initial condition file; and `states_DFS.txt` is the output state space file.
 ### Step 3: Generating transition rate matrix from the state space
 
 The corresponding transition rate matrix of the state space can be generated
-using `net2matrix` program in the package. `net2matrix` reads the SBML file and
-state space file, which has been enumerated in 
-[step2](#step-2-finitely-buffered-optimal-statespace-enumeration), as inputs,
-and calculate the transition rates between each pair of states in the whole
-state space, and output the sparse transition rate matrix in coordinate list
+using the `net2matrix` program included in the package. `net2matrix` reads the
+input SBML and the state space files enumerated in 
+[step 2](#step-2-finitely-buffered-optimal-statespace-enumeration), and
+calculates the transition rates between each pair of states in the whole state
+space, and outputs the sparse transition rate matrix in a coordinate list
 (`COO`) format file. 
 
 ```
@@ -178,7 +179,7 @@ $1 \times 10^{-10}$ in `ssor`. The error in `ssor` is absolute error with infini
 norm. 
 
 The format of probability distribution file `steady_DFS.txt` is
-straight-forward. The distribution is a vector with length same as the state
+straight-forward. The distribution is a vector with the same length as the state
 space size. Each line of the probability distribution file is the probability of
 the corresponding state in the state space. Only the first line is exceptional,
 which is always "1" indicating the summation of the rest of the probability
@@ -188,7 +189,7 @@ vector.
 
 Not only steady-state distribution, but also the time evolution of dCME
 probability landscape can be calculated. Program `mxexp` is provided with this
-package to calculate the time evolution of dCME probability distribution.  The
+package to calculate the time evolution of dCME probability distribution.
 `mxexp` is a Fortran program based on `EXPOKIT` (Sidje 1998). 
 
 ```
