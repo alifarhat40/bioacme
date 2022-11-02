@@ -140,7 +140,7 @@ Usage:
  -h  --help                        Prints this help
  -m  --mtrx <matrix file>          Input matrix file
  -s  --steady <steady state file>  Output steady state distribution file
- -o  --omega <1.0>                 Omega value for Succesive Over Relaxation
+ -o  --omega <1.0>                 Omega value for Successive Over Relaxation
  -t  --tol <1E-10>                 Error tolerance
  -v  --verbose 0                   Switch for more output
  ```
