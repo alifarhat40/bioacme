@@ -9,6 +9,21 @@ University of Illinois at Chicago
 Chicago, IL
 
 
+## Requirements
+We currently support windows, linux and macos on python 3.10 and
+above. This package wraps old fortran code, that can be tricky
+to get compiled, so when you install it you should be downloading
+a wheel that contains all the compiled binaries. If you want to
+build it yourself, read the [build](#building-from-source) section.
+
+## Installation
+We recomend using a virtual environment to install the package.
+Use pip, pipx, poetry, conda, or any package manager that supports
+pypi.org packages. To install with pip on the current environment:
+```
+$ pip install bioacme
+```
+
 ## Usage Step by Step
 *Solving dCME by optimal enumeration of finitely buffered state space.*
 
@@ -203,3 +218,12 @@ in the space will be assigned probability 1 and all the rest 0, if `-p 1` is
 set; otherwise, an initial distribution file has to be provided. The parameter
 `-i` indicates the intermediate directory to store intermediate probability
 landscapes at each intermediate steps during the calculation. 
+
+## Python interface
+
+<!-- [TODO] -->
+
+
+## Building from source
+
+<!-- [TODO] -->
