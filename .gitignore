@@ -137,3 +137,6 @@ ipython_config.py
 # Configuration files - not the templates
 /.pylint.d
 .idea/
+
+# binary files
+/acme/bin
