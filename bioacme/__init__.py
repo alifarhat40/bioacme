@@ -18,22 +18,27 @@ def _run(program, *pargs, input=None, **pkwargs):
     args = [_bin_path(program)]
     args.extend(pargs)
     for param, value in pkwargs.items():
-        args.append("--" + param if len(param) > 1 else "-" + param)
-        args.append(str(value))
-    return subprocess.run(args, input=input, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        args.extend(("--" + param if len(param) > 1 else "-" + param, str(value)))
+    return subprocess.run(
+        args, input=input, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    )
 
 
 def build_state_space_bfs(*args, **kwargs):
     return _run(_BUILD_STATE_SPACE_BFS, *args, **kwargs)
 
+
 def build_state_space_dfs(*args, **kwargs):
     return _run(_BUILD_STATE_SPACE_DFS, *args, **kwargs)
+
 
 def mxexp(*args, **kwargs):
     return _run(_MXEXP, *args, **kwargs)
 
+
 def net_2_matrix(*args, **kwargs):
     return _run(_NET_2_MATRIX, *args, **kwargs)
+
 
 def ssor(*args, **kwargs):
     return _run(_SSOR, *args, **kwargs)

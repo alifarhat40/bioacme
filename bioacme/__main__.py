@@ -1,13 +1,13 @@
-import sys
 import subprocess
+import sys
 
 from bioacme import (
-    _bin_path,
     _BUILD_STATE_SPACE_BFS,
     _BUILD_STATE_SPACE_DFS,
     _MXEXP,
     _NET_2_MATRIX,
     _SSOR,
+    _bin_path,
 )
 
 sanatize_name = lambda name: name.replace("_", "").lower()
@@ -53,8 +53,8 @@ def main():
     args = sys.argv[2:]
     try:
         _run(FUNC_NAMES[name], args)
-    except KeyError:
-        raise ValueError(f"Unknown command: {name}")
+    except KeyError as e:
+        raise ValueError(f"Unknown command: {name}") from e
 
 
 if __name__ == "__main__":
