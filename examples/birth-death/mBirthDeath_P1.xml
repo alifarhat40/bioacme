@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="Birth-Death Process">
+<listOfCompartments>
+<compartment id="default" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="S" name="S" compartment="default" initialAmount="0" charge="0"/>
+<species id="ES" name="ES" compartment="default" initialAmount="0" charge="0"/>
+</listOfSpecies>
+<listOfParameters>
+  <parameter id="k1" value="1"/>
+  <parameter id="k2" value="0.025"/>
+</listOfParameters>
+<listOfReactions>
+  <reaction id="re2" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="ES"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="S"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+          <ci> default </ci>
+          <ci> k1 </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re12" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="S"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="ES"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+	  <ci> k2 </ci>
+	  <ci> S </ci>
+	</apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+</listOfReactions>
+</model>
+</sbml>

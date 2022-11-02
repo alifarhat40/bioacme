@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="Toggle_switch">
+<listOfCompartments>
+<compartment id="default" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="Pa" name="Pa" compartment="default" initialAmount="0" charge="0"/>
+<species id="Pb" name="Pb" compartment="default" initialAmount="0" charge="0"/>
+<species id="Da" name="Da" compartment="default" initialAmount="0" charge="0"/>
+<species id="Db" name="Db" compartment="default" initialAmount="0" charge="0"/>
+<species id="BDa" name="BDa" compartment="default" initialAmount="0" charge="0"/>
+<species id="BDb" name="BDb" compartment="default" initialAmount="0" charge="0"/>
+<species id="ES" name="ES" compartment="default" initialAmount="0" charge="0"/>
+</listOfSpecies>
+<listOfParameters>
+  <parameter id="s_a" value="1"/>
+  <parameter id="s_b" value="1"/>
+  <parameter id="d_a" value="1"/>
+  <parameter id="d_b" value="1"/>
+  <parameter id="b_a" value="1"/>
+  <parameter id="b_b" value="1"/>
+  <parameter id="u_a" value="1"/>
+  <parameter id="u_b" value="1"/>
+  <parameter id="d" value="1"/>
+  <parameter id="s_0" value="0"/>
+  <parameter id="s" value="0" constant="false"/>
+  <parameter id="b" value="0" constant="false"/>
+  <parameter id="u" value="0" constant="false"/>
+  <parameter id="omega" value="0.1"/>
+  <parameter id="Xeq" value="20000"/>
+  <parameter id="Xad" value="50"/>
+</listOfParameters>
+<listOfRules>
+  <assignmentRule variable="s">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <minus/>
+          <apply>
+	    <times/>
+            <cn> 2 </cn>
+            <ci> d </ci>
+            <ci> Xad </ci>
+          </apply>
+          <ci> s_0 </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="u">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <times/>
+        <ci> omega </ci>
+        <ci> d </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+  <assignmentRule variable="b">
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply>
+        <divide/>
+        <ci> u </ci>
+        <ci> Xeq </ci>
+      </apply>
+    </math>
+  </assignmentRule>
+</listOfRules>
+<listOfReactions>
+  <reaction id="re1" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="ES"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="Pb"/>
+    </listOfProducts>
+    <listOfModifiers>
+      <modifierSpeciesReference species="Db"/>
+    </listOfModifiers>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> default </ci>
+          <ci> s </ci>
+	  <ci> Db </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re2" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="ES"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="Pa"/>
+    </listOfProducts>
+    <listOfModifiers>
+      <modifierSpeciesReference species="Da"/>
+    </listOfModifiers>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> default </ci>
+          <ci> s </ci>
+	  <ci> Da </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re5" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="Pb" stoichiometry="2"/>
+      <speciesReference species="Da"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="BDa"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> default </ci>
+          <ci> b </ci>
+          <apply>
+	    <divide/>
+	      <apply>
+                <times/>
+                <ci> Pb </ci>
+                <apply>
+                  <minus/>
+                  <ci> Pb </ci>
+                  <cn> 1 </cn>
+                </apply>
+              </apply>
+              <cn> 2 </cn>
+          </apply>
+	  <ci> Da </ci>
+        </apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re7" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="BDa"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="Da"/>
+      <speciesReference species="Pb" stoichiometry="2"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+	  <ci> default </ci>
+	  <ci> u </ci>
+	  <ci> BDa </ci>
+	</apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re11" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="Pb"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="ES"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+	  <ci> default </ci>
+	  <ci> d </ci>
+	  <ci> Pb </ci>
+	</apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re12" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="Pa"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="ES"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+	  <ci> default </ci>
+	  <ci> d </ci>
+	  <ci> Pa </ci>
+	</apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re13" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="Pa" stoichiometry="2"/>
+      <speciesReference species="Db"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="BDb"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+	  <ci> default </ci>
+	  <ci> b </ci>
+	  <apply>
+	    <divide/>
+	    <apply>
+	      <times/>
+	      <ci> Pa </ci>
+	      <apply>
+	        <minus/>
+	        <ci> Pa </ci>
+		<cn> 1 </cn>
+	      </apply>
+	    </apply>
+	    <cn> 2 </cn>
+	  </apply>
+	  <ci> Db </ci>
+	</apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+  <reaction id="re14" reversible="false" fast="false">
+    <listOfReactants>
+      <speciesReference species="BDb"/>
+    </listOfReactants>
+    <listOfProducts>
+      <speciesReference species="Pa" stoichiometry="2"/>
+      <speciesReference species="Db"/>
+    </listOfProducts>
+    <kineticLaw>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+	  <times/>
+	  <ci> default </ci>
+	  <ci> u </ci>
+	  <ci> BDb </ci>
+	</apply>
+      </math>
+    </kineticLaw>
+  </reaction>
+</listOfReactions>
+</model>
+</sbml>

@@ -220,6 +220,11 @@ set; otherwise, an initial distribution file has to be provided. The parameter
 `-i` indicates the intermediate directory to store intermediate probability
 landscapes at each intermediate steps during the calculation. 
 
+## Examples
+On the `examples` directory, you can find some usage examples taken from the
+original fortran package. The programs are called exactly the same when invoked
+by this python wrapper, so the examples should work without any modification.
+
 ## Python interface
 
 <!-- [TODO] -->
