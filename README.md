@@ -227,9 +227,42 @@ by this python wrapper, so the examples should work without any modification.
 
 ## Python interface
 
-<!-- [TODO] -->
+Each program included in the package has an corresponding Pyhon function in the `bioacme` module that wraps the function call. The Python interface is provided in the `bioacme` module. 
+
+ - `bioacme.build_state_space_bfs` is the Python wrapper for `buildStateSpace_BFS` program.
+ - `bioacme.build_state_space_dfs` is the Python wrapper for `buildStateSpace_DFS` program.
+ - `bioacme.mxexp` is the Python wrapper for `mxexp` program.
+ - `bioacme.net2matrix` is the Python wrapper for `net2matrix` program.
+ - `bioacme.ssor` is the Python wrapper for `ssor` program.
+
+The parameters can be passed to the function as **positional arguments** or **keyword arguments**. The positional arguments are the same as the command-line arguments. The keyword arguments are the same as the command-line arguments, but with the leading dash (`-`) removed. 
+
+For example, the `net2matrix` program can be called in Python as follows:
+
+```python
+from bioacme import net2matrix
+
+net2matrix('-m', 'mBirthDeath_P1.xml', '-s', 'states_DFS.txt', '-t', 'tm_DFS.txt')
+
+net2matrix(m='mBirthDeath_P1.xml', s='states_DFS.txt', t='tm_DFS.txt')
+```
+
+If the function expects input from `stdin` during the execution, the input can be passed as a string to the `input` keyword argument.
 
 
 ## Building from source
 
-<!-- [TODO] -->
+The source code is written in C++ and Fortran located in the `src` directory. [SBML](https://sbml.org/software/libsbml/) library and it's building requirements (`zlib`,`libxml`,`bzip2`) are required to build the source code. To build the source code, you need to have a C++ compiler and Fortran compiler installed and the `cmake` build system. If you are using an Ubuntu-based Linux distribution, you may need to build and install the `sbml` from source.
+
+To build the source code, run the following commands in the root directory of the project:
+
+```bash
+$ cmake -B build
+$ cmake --build build
+```
+
+The built programs are located in the `bin` directory inside the `build` directory.
+
+### Generating python wheel package
+
+The python package is built using [poetry](https://python-poetry.org/). To build the python package just execute `poetry build` in the root directory of the project. The built package will be located in the `dist` directory. Note that build.py script also builds the source code and copies the built programs to the `bioacme` package directory, so you don't need to build the source code separately if you are building the python package.
