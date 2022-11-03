@@ -260,6 +260,7 @@ net2matrix(m='mBirthDeath_P1.xml', s='states_DFS.txt', t='tm_DFS.txt')
 If the function expects input from `stdin` during the execution, the input can
 be passed as a string to the `input` keyword argument.
 
+The programs can also be called from the command line using the `python -m bioacme <program> <args>` syntax. The program name is not case sensitive and disregards any underscores.
 
 ## Building from source
 
