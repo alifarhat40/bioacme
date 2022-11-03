@@ -48,6 +48,9 @@ PATHS ${CMAKE_INSTALL_FULL_LIBDIR}/cmake
         /opt/lib/cmake
         /opt/local/lib/cmake
         /sw/lib/cmake
+        /usr/lib/cmake
+        /usr/lib/x86_64-linux-gnu/cmake
+        /usr/lib/i386-linux-gnu/cmake
 )
 
 
@@ -139,28 +142,14 @@ else()
         message(FATAL_ERROR "LIBSBML library not found!")
     endif (NOT LIBSBML_LIBRARY)
 
-    add_library(${LIBSBML_LIBRARY_NAME} UNKNOWN IMPORTED)
-    set_target_properties(${LIBSBML_LIBRARY_NAME} 
-    PROPERTIES
-        IMPORTED_LOCATION ${LIBSBML_LIBRARY}
-        INTERFACE_INCLUDE_DIRECTORIES ${LIBSBML_INCLUDE_DIR}
-    )
-
 endif()
 
 if (LIBSBML_INCLUDE_DIR)
   libfind_version_header(LIBSBML "sbml/common/libsbml-version.h" "LIBSBML_DOTTED_VERSION")
 endif()
 
-set(LIBSBML_FOUND "NO")
-if(LIBSBML_LIBRARY)
-    if (LIBSBML_INCLUDE_DIR)
-        SET(LIBSBML_FOUND "YES")
-    endif(LIBSBML_INCLUDE_DIR)
-endif(LIBSBML_LIBRARY)
-
 # set static on the library on windows
-if ((WIN32 AND NOT CYGWIN) AND LIBSBML_FOUND AND LIBSBML_LIBRARY MATCHES "static")
+if ((WIN32 AND NOT CYGWIN) AND LIBSBML_INCLUDE_DIR AND LIBSBML_LIBRARY MATCHES "static")
   set_target_properties(${LIBSBML_LIBRARY_NAME} PROPERTIES 
   INTERFACE_COMPILE_DEFINITIONS "LIBSBML_STATIC=1;LIBLAX_STATIC=1;LIBSBML_EXPORTS;LIBLAX_EXPORTS"
 )
