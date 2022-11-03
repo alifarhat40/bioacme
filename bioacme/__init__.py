@@ -6,7 +6,7 @@ __version__ = "0.1.0"
 _BUILD_STATE_SPACE_BFS = "buildStateSpace_BFS"
 _BUILD_STATE_SPACE_DFS = "buildStateSpace_DFS"
 _MXEXP = "mxexp"
-_NET_2_MATRIX = "net2matrix"
+_NET2MATRIX = "net2matrix"
 _SSOR = "ssor"
 
 
@@ -37,7 +37,7 @@ def mxexp(*args, **kwargs):
 
 
 def net_2_matrix(*args, **kwargs):
-    return _run(_NET_2_MATRIX, *args, **kwargs)
+    return _run(_NET2MATRIX, *args, **kwargs)
 
 
 def ssor(*args, **kwargs):

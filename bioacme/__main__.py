@@ -5,7 +5,7 @@ from bioacme import (
     _BUILD_STATE_SPACE_BFS,
     _BUILD_STATE_SPACE_DFS,
     _MXEXP,
-    _NET_2_MATRIX,
+    _NET2MATRIX,
     _SSOR,
     _bin_path,
 )
@@ -18,7 +18,7 @@ FUNC_NAMES = {
         _BUILD_STATE_SPACE_BFS,
         _BUILD_STATE_SPACE_DFS,
         _MXEXP,
-        _NET_2_MATRIX,
+        _NET2MATRIX,
         _SSOR,
     )
 }
@@ -41,7 +41,7 @@ def mxexp():
 
 
 def net_2_matrix():
-    _run(_NET_2_MATRIX, sys.argv[1:])
+    _run(_NET2MATRIX, sys.argv[1:])
 
 
 def ssor():

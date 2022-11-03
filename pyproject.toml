@@ -20,7 +20,7 @@ build-backend = "poetry.core.masonry.api"
 build_state_space_bfs = "bioacme.__main__:build_state_space_bfs"
 build_state_space_dfs = "bioacme.__main__:build_state_space_dfs"
 mxexp = "bioacme.__main__:mxexp"
-net_2_matrix = "bioacme.__main__:net_2_matrix"
+net2matrix = "bioacme.__main__:net_2_matrix"
 ssor = "bioacme.__main__:ssor"
 
 [tool.poetry.build]

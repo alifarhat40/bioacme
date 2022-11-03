@@ -31,19 +31,19 @@ $ pip install bioacme
 
 #### SBML of the reaction network
 
-SBML format of level 2 version 1 is currently supported. The `buildStateSpace`
+SBML format of level 2 version 1 is currently supported. The `build_state_space`
 programs receive an SBML file as input, and parse all reaction network
 information, including molecular species, reactions, parameters, kinetic laws
 for each reactions, as well as the stoichiometry matrix of the network, for later
 use in enumerating the state space. 
    
 **IT IS IMPORTANT TO MAKE SURE THAT THE SBML FILE FORMAT IS VALID AND CORRECT,** 
-**IN ORDER FOR THE `buildStateSpace` PROGRAMS TO WORK PROPERLY.**
+**IN ORDER FOR THE `build_state_space` PROGRAMS TO WORK PROPERLY.**
 
 #### Initial condition file
 
 This file contains the information of the initial states that the
-`buildStateSpace` programs require in order to enumerate the state space,
+`build_state_space` programs require in order to enumerate the state space,
 applying the FBS-dCME method. It is a pure text file, which should be in the
 same format as in the example bellow:
 
@@ -91,8 +91,8 @@ Two different flavors of state space enumeration are implemented by using
 traversal algorithms, respectively. The enumerated state spaces are exactly the
 same by using either one of the two programs. The only difference is the order
 of the states when enumerated. One command line example of state space
-enumeration using `buildStateSpace_DFS` is given below. The usage of the **BFS**
-version is the same, but called as `buildStateSpace_BFS`. 
+enumeration using `build_state_space_dfs` is given below. The usage of the **BFS**
+version is the same, but called as `build_state_space_bfs`. 
 
 ```
 Usage:
@@ -102,11 +102,11 @@ Usage:
  -s  --statespace <ssfile>  Output state space file
  -v  --verbose              Switch for more output
 ```
-Command-line example for using `buildStateSpace_DFS` to enumerate the state
+Command-line example for using `build_state_space_dfs` to enumerate the state
 space of the classical birth and death process: 
 
 ```bash
-$ buildStateSpace_DFS -m mBirthDeath_P1.xml -i init_bd40.txt -s states_DFS.txt
+$ build_state_space_dfs -m mBirthDeath_P1.xml -i init_bd40.txt -s states_DFS.txt
 ```
 
 Here, `mBirthDeath_P1.xml` is the SBML file of network; `init_bd40.txt` is the
@@ -227,15 +227,25 @@ by this python wrapper, so the examples should work without any modification.
 
 ## Python interface
 
-Each program included in the package has an corresponding Pyhon function in the `bioacme` module that wraps the function call. The Python interface is provided in the `bioacme` module. 
+Each program included in the package has an corresponding Pyhon function in the
+`bioacme` module that wraps the function call. The Python interface is provided
+in the `bioacme` module. They can be called with the same name as their terminal
+command counterparts.
 
- - `bioacme.build_state_space_bfs` is the Python wrapper for `buildStateSpace_BFS` program.
- - `bioacme.build_state_space_dfs` is the Python wrapper for `buildStateSpace_DFS` program.
- - `bioacme.mxexp` is the Python wrapper for `mxexp` program.
- - `bioacme.net2matrix` is the Python wrapper for `net2matrix` program.
- - `bioacme.ssor` is the Python wrapper for `ssor` program.
+```python
+from bioacme import (
+    build_state_space_bfs,
+    build_state_space_dfs,
+    mxexp,
+    net2matrix,
+    ssor,
+)
+```
 
-The parameters can be passed to the function as **positional arguments** or **keyword arguments**. The positional arguments are the same as the command-line arguments. The keyword arguments are the same as the command-line arguments, but with the leading dash (`-`) removed. 
+The parameters can be passed to the function as **positional arguments** or
+**keyword arguments**. The positional arguments are the same as the command-line
+arguments. The keyword arguments are the same as the command-line arguments, but
+with the leading dash (`-`) removed. 
 
 For example, the `net2matrix` program can be called in Python as follows:
 
@@ -247,22 +257,35 @@ net2matrix('-m', 'mBirthDeath_P1.xml', '-s', 'states_DFS.txt', '-t', 'tm_DFS.txt
 net2matrix(m='mBirthDeath_P1.xml', s='states_DFS.txt', t='tm_DFS.txt')
 ```
 
-If the function expects input from `stdin` during the execution, the input can be passed as a string to the `input` keyword argument.
+If the function expects input from `stdin` during the execution, the input can
+be passed as a string to the `input` keyword argument.
 
 
 ## Building from source
 
-The source code is written in C++ and Fortran located in the `src` directory. [SBML](https://sbml.org/software/libsbml/) library and it's building requirements (`zlib`,`libxml`,`bzip2`) are required to build the source code. To build the source code, you need to have a C++ compiler and Fortran compiler installed and the `cmake` build system. If you are using an Ubuntu-based Linux distribution, you may need to build and install the `sbml` from source.
+The source code is written in C++ and Fortran located in the `src` directory.
+[libsbml](https://sbml.org/software/libsbml/) library and it's building
+requirements (`zlib`,`libxml`,`bzip2`) are required to build the source code. To
+build the source code, you need to have a C++ compiler and Fortran compiler
+installed and the `cmake` build system. If you are using an Ubuntu-based Linux
+distribution, you may need to build and install `libsbml` from source.
 
-To build the source code, run the following commands in the root directory of the project:
+To build the source code, run the following commands in the root directory of
+the project:
 
 ```bash
 $ cmake -B build
 $ cmake --build build
 ```
 
-The built programs are located in the `bin` directory inside the `build` directory.
+The built programs are located in the `bin` directory inside the `build`
+directory.
 
 ### Generating python wheel package
 
-The python package is built using [poetry](https://python-poetry.org/). To build the python package just execute `poetry build` in the root directory of the project. The built package will be located in the `dist` directory. Note that build.py script also builds the source code and copies the built programs to the `bioacme` package directory, so you don't need to build the source code separately if you are building the python package.
+The python package is built using [poetry](https://python-poetry.org/). To build
+the python package just execute `poetry build` in the root directory of the
+project. The built package will be located in the `dist` directory. Note that
+build.py script also builds the source code and copies the built programs to the
+`bioacme` package directory, so you don't need to build the source code
+separately if you are building the python package.
