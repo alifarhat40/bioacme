@@ -1,6 +1,6 @@
 # BIOACME
 Based on **FBS-dCME**: Finitely Buffered Optimal State space enumeration and
-discrete Chemical Master Equation solution
+discrete Chemical Master Equation solution.
 
 **Credits for original FBS-dCME**:
 Youfang Cao
