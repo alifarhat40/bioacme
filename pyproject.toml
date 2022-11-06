@@ -7,13 +7,18 @@ authors = [
     "João Carlos Rodrigues Jr. <jc.rodrigues1997@gmail.com>",
     "Hendrik Dumith Louzada <hendriklouzada@gmail.com>"
 ]
-include = [{ path = "bioacme/bin/*", format = ["sdist", "wheel"]}]
+include = [
+    { path = "bioacme/bin/*", format = "wheel"},
+    { path = "src/*", format = "sdist"},
+    { path = "CMakeModules/*", format = "sdist"},
+    { path = "CMakeLists.txt", format = "sdist"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "cmake"]
+requires = ["poetry-core>=1.0.0", "cmake", "setuptools", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
@@ -24,5 +29,4 @@ net2matrix = "bioacme.__main__:net_2_matrix"
 ssor = "bioacme.__main__:ssor"
 
 [tool.poetry.build]
-generate-setup-file = false
 script = "build.py"
