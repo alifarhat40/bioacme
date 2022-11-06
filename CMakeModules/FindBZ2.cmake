@@ -1,12 +1,16 @@
 include(LibFindMacros)
 include(GNUInstallDirs)
 
+string(TOUPPER ${CMAKE_PROJECT_NAME} _UPPER_PROJECT_NAME)
+set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
+
 find_path(BZ2_INCLUDE_DIR
   NAMES bzlib.h bzip2/bzlib.h
-  PATHS ${BZ2_PKGCONF_INCLUDE_DIRS}
-  ${CMAKE_INSTALL_FULL_INCLUDEDIR}
-  $ENV{HOME}/usr/include
-  /usr/local/include
+  PATHS $ENV{BZ2_DIR}/include
+        $ENV{BZ2_DIR}
+        ${${_PROJECT_DEPENDENCY_DIR}}/include
+        ${${_PROJECT_DEPENDENCY_DIR}}
+        ${BZ2_PKGCONF_INCLUDE_DIRS}
 )
 
 if (BZ2_INCLUDE_DIR)
@@ -16,10 +20,11 @@ endif ()
 
 find_library(BZ2_LIBRARY
   NAMES bzip2 bz2
-  PATHS ${LIBZ_PKGCONF_LIBRARY_DIRS}
-  ${CMAKE_INSTALL_FULL_LIBDIR}
-  $ENV{HOME}/usr/lib
-  /usr/local/lib
+  PATHS $ENV{BZ2_DIR}/lib
+        $ENV{BZ2_DIR}
+        ${${_PROJECT_DEPENDENCY_DIR}}/lib
+        ${${_PROJECT_DEPENDENCY_DIR}}
+        ${LIBZ_PKGCONF_LIBRARY_DIRS}
 )
 
 include(CheckLibraryExists)

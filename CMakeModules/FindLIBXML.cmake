@@ -3,32 +3,30 @@ include(LibFindMacros)
 include(GNUInstallDirs)
 
 
-string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+string(TOUPPER ${CMAKE_PROJECT_NAME} _UPPER_PROJECT_NAME)
 set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
 
 find_path(LIBXML_INCLUDE_DIR
   NAMES libxml/parser.h
-  PATHS ${${_PROJECT_DEPENDENCY_DIR}}/include
+  PATHS $ENV{LIBXML_DIR}/include
+        $ENV{LIBXML_DIR}
+        ${${_PROJECT_DEPENDENCY_DIR}}/include
         ${${_PROJECT_DEPENDENCY_DIR}}/include/libxml2
-        ${CMAKE_INSTALL_FULL_INCLUDEDIR}
-        ${CMAKE_INSTALL_FULL_INCLUDEDIR}/libxml2
         ${CMAKE_OSX_SYSROOT}/usr/include/libxml2
         ${CMAKE_OSX_SYSROOT}/usr/include
-        $ENV{HOME}/usr/include/libxml2
-        $ENV{HOME}/usr/include
-        /usr/local/include/libxml2
-        /usr/local/include
-)      
+  PATH_SUFFIXES include/libxml2 libxml2/include
+)
 
 
 find_library(LIBXML_LIBRARY
   NAMES  xml2s xml2
-  PATHS ${CMAKE_INSTALL_FULL_LIBDIR}
+  PATHS $ENV{LIBXML_DIR}/lib
+        $ENV{LIBXML_DIR}
+        ${CMAKE_INSTALL_FULL_LIBDIR}
         ${${_PROJECT_DEPENDENCY_DIR}}/lib64
         ${${_PROJECT_DEPENDENCY_DIR}}/lib
-        $ENV{HOME}/usr/lib
-        /usr/local/lib
+  PATH_SUFFIXES libxml2/lib
 )
 
 if(LIBXML_INCLUDE_DIR)
@@ -41,8 +39,7 @@ find_library(LIBICONV_LIBRARY
   PATHS ${CMAKE_INSTALL_FULL_LIBDIR}
         ${${_PROJECT_DEPENDENCY_DIR}}/lib64
         ${${_PROJECT_DEPENDENCY_DIR}}/lib
-        $ENV{HOME}/usr/lib
-        /usr/local/lib
+        ${${_PROJECT_DEPENDENCY_DIR}}
 )
 
 set(ADDITIONAL_LIBS)

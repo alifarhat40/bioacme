@@ -35,22 +35,18 @@ endif()
 
 message (VERBOSE "Looking for ${LIBSBML_LIBRARY_NAME}")
 
-string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+string(TOUPPER ${CMAKE_PROJECT_NAME} _UPPER_PROJECT_NAME)
 set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
 find_package(${LIBSBML_LIBRARY_NAME} CONFIG
 PATHS ${CMAKE_INSTALL_FULL_LIBDIR}/cmake
+        $ENV{LIBSBML_DIR}/lib/cmake
+        $ENV{LIBSBML_DIR}/cmake
+        $ENV{LIBSBML_DIR}
         ${${_PROJECT_DEPENDENCY_DIR}}/lib/cmake
         ${${_PROJECT_DEPENDENCY_DIR}}/lib64/cmake
         ${CONAN_LIB_DIRS_LIBSBML}/cmake
-        $ENV{HOME}/usr/lib/cmake
-        /usr/local/lib/cmake
-        /opt/lib/cmake
-        /opt/local/lib/cmake
-        /sw/lib/cmake
-        /usr/lib/cmake
-        /usr/lib/x86_64-linux-gnu/cmake
-        /usr/lib/i386-linux-gnu/cmake
+PATH_SUFFIXES sbml/lib/cmake libsbml/lib/cmake
 )
 
 
@@ -107,11 +103,7 @@ else()
             ${${_PROJECT_DEPENDENCY_DIR}}/include
             ~/Library/Frameworks
             /Library/Frameworks
-            /sw/include        # Fink
-            /opt/local/include # MacPorts
-            /opt/csw/include   # Blastwave
-            /opt/include
-            /usr/freeware/include
+        PATH_SUFFIXES sbml/include libsbml/include
     )
 
     if (NOT LIBSBML_INCLUDE_DIR)
@@ -122,25 +114,39 @@ else()
     find_library(LIBSBML_LIBRARY 
         NAMES ${LIBSBML_LIBRARY_NAME}
         PATHS   ${CMAKE_INSTALL_FULL_LIBDIR}
-                ${LIBSBML_DIR}/lib
+                $ENV{LIBSBML_DIR}/lib
                 $ENV{LIBSBML_DIR}
-                $ENV{HOME}/usr/lib
-                /usr/local/lib
                 ${${_PROJECT_DEPENDENCY_DIR}}
-                ${${_PROJECT_DEPENDENCY_DIR}}/${CMAKE_INSTALL_LIBDIR}
+                ${${_PROJECT_DEPENDENCY_DIR}}/lib64
+                ${${_PROJECT_DEPENDENCY_DIR}}/lib
                 ${CONAN_LIB_DIRS_LIBSBML}
                 $ENV{HOME}/Library/Frameworks
                 /Library/Frameworks
-                /sw/lib        # Fink
-                /opt/local/lib # MacPorts
-                /opt/csw/lib   # Blastwave
-                /opt/lib
-                /usr/freeware/lib64
+        PATH_SUFFIXES sbml/lib libsbml/lib
     )
 
     if (NOT LIBSBML_LIBRARY)
         message(FATAL_ERROR "LIBSBML library not found!")
     endif (NOT LIBSBML_LIBRARY)
+
+    foreach (library BZ2::BZ2;ZLIB::ZLIB;LIBXML::LIBXML)
+  
+      string(FIND "${library}" "::" index)
+
+      if (${index} GREATER 0)
+        string(SUBSTRING "${library}" 0 ${index} DEPENDENT_NAME)
+        message(VERBOSE "Looking for dependent library: ${DEPENDENT_NAME}")
+        libfind_package(LIBSBML ${DEPENDENT_NAME})
+      endif()
+  
+  endforeach()
+
+  add_library(${LIBSBML_LIBRARY_NAME} UNKNOWN IMPORTED)
+  set_target_properties(${LIBSBML_LIBRARY_NAME} 
+  PROPERTIES
+      IMPORTED_LOCATION ${LIBSBML_LIBRARY}
+      INTERFACE_INCLUDE_DIRECTORIES ${LIBSBML_INCLUDE_DIR}
+  )
 
 endif()
 

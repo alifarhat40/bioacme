@@ -17,7 +17,7 @@
 
 include(LibFindMacros)
 
-string(TOUPPER ${PROJECT_NAME} _UPPER_PROJECT_NAME)
+string(TOUPPER ${CMAKE_PROJECT_NAME} _UPPER_PROJECT_NAME)
 set(_PROJECT_DEPENDENCY_DIR ${_UPPER_PROJECT_NAME}_DEPENDENCY_DIR)
 
 # Check if we have cached results in case the last round was successful.
@@ -32,11 +32,6 @@ if (NOT (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY) OR NOT ZLIB_FOUND)
               ${${_PROJECT_DEPENDENCY_DIR}}/include
               ~/Library/Frameworks
               /Library/Frameworks
-              /sw/include        # Fink
-              /opt/local/include # MacPorts
-              /opt/csw/include   # Blastwave
-              /opt/include
-              /usr/freeware/include
     )
 
     find_library(ZLIB_LIBRARY 
@@ -45,18 +40,11 @@ if (NOT (ZLIB_INCLUDE_DIR AND ZLIB_LIBRARY) OR NOT ZLIB_FOUND)
               $ENV{ZLIB_DIR}/lib
 	          $ENV{ZLIB_DIR}/lib-dbg
 	          $ENV{ZLIB_DIR}
-              $ENV{HOME}/usr/lib
-              /usr/local/lib
-              ${${_PROJECT_DEPENDENCY_DIR}}
-              ${${_PROJECT_DEPENDENCY_DIR}}/${CMAKE_INSTALL_LIBDIR}
+              ${${_PROJECT_DEPENDENCY_DIR}}/lib
+              ${${_PROJECT_DEPENDENCY_DIR}}/lib64
               ${CONAN_LIB_DIRS_LIBSBML}
               $ENV{HOME}/Library/Frameworks
               /Library/Frameworks
-              /sw/lib        # Fink
-              /opt/local/lib # MacPorts
-              /opt/csw/lib   # Blastwave
-              /opt/lib
-              /usr/freeware/lib64
     )
 
     if (NOT WIN32)
