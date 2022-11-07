@@ -227,7 +227,7 @@ by this python wrapper, so the examples should work without any modification.
 
 ## Python interface
 
-Each program included in the package has an corresponding Pyhon function in the
+Each program included in the package has an corresponding Python function in the
 `bioacme` module that wraps the function call. The Python interface is provided
 in the `bioacme` module. They can be called with the same name as their terminal
 command counterparts.
