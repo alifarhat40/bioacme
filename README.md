@@ -20,8 +20,8 @@ are downloaded for you. If you want to build it yourself, read the
 We recomend using a virtual environment to install the package.
 Use pip, pipx, poetry, conda, or any package manager that supports
 pypi.org packages. To install with pip on the current environment:
-```
-$ pip install bioacme
+```bash
+pip install bioacme
 ```
 
 ## Usage Step by Step
@@ -45,10 +45,11 @@ use in enumerating the state space.
 This file contains the information of the initial states that the
 `build_state_space` programs require in order to enumerate the state space,
 applying the FBS-dCME method. It is a pure text file, which should be in the
-same format as in the example bellow:
+same format as in the following example.
+
+**`init.txt` :**
 
 ```bash
-$ cat init.txt
 4 1
 10 0 0 0, 1
 ```
@@ -106,7 +107,7 @@ Command-line example for using `build_state_space_dfs` to enumerate the state
 space of the classical birth and death process: 
 
 ```bash
-$ build_state_space_dfs -m mBirthDeath_P1.xml -i init_bd40.txt -s states_DFS.txt
+build_state_space_dfs -m mBirthDeath_P1.xml -i init_bd40.txt -s states_DFS.txt
 ```
 
 Here, `mBirthDeath_P1.xml` is the SBML file of network; `init_bd40.txt` is the
@@ -137,7 +138,7 @@ Command-line example for using `net2matrix` to generate the transition rate
 matrix for the above birth and death example:
 
 ```bash
-$ net2matrix -m mBirthDeath_P1.xml -s states_DFS.txt -t tm_DFS.txt
+net2matrix -m mBirthDeath_P1.xml -s states_DFS.txt -t tm_DFS.txt
 ```
 
 Here, `tm_DFS.txt` is the output transition rate matrix. 
@@ -165,7 +166,7 @@ Typical command-line example for using `ssor` program to solve the
 steady-state distribution of dCME, using the birth and death as example: 
 
 ```bash
-$ ssor -m tm_DFS.txt -s steady_DFS.txt
+ssor -m tm_DFS.txt -s steady_DFS.txt
 ```
 Here, `tm_DFS.txt` is the input transition rate matrix generated in 
 [step 3](#step-3-generating-transition-rate-matrix-from-the-state-space), and
@@ -208,7 +209,7 @@ The command-line example for using `mxexp` program to calculate time evolution
 dCME probability landscape, using the birth and death as example: 
 
 ```bash
-$ mxexp -m tm_DFS.txt -t 100 -d 1 -p 0 -i ./dynamics/
+mxexp -m tm_DFS.txt -t 100 -d 1 -p 0 -i ./dynamics/
 ```
 
 Here, the parameter `-t` specifies the total time that `mxexp` will calculate
@@ -247,7 +248,8 @@ The parameters can be passed to the function as **positional arguments** or
 arguments. The keyword arguments are the same as the command-line arguments, but
 with the leading dash (`-`) removed. 
 
-For example, the `net2matrix` program can be called in Python as follows:
+For example, the `net2matrix` program can be called in Python in either of
+the following ways:
 
 ```python
 from bioacme import net2matrix
@@ -275,8 +277,8 @@ To build the source code, run the following commands in the root directory of
 the project:
 
 ```bash
-$ cmake -B build
-$ cmake --build build
+cmake -B build
+cmake --build build
 ```
 
 The built programs are located in the `bin` directory inside the `build`
