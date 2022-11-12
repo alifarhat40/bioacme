@@ -10,16 +10,16 @@ Chicago, IL
 
 
 ## Requirements
-We currently support windows, linux and macos on python 3.10 and
-above. This package wraps old fortran code, that can be tricky
-to get compiled, so when you install it, all the compiled binaries
-are downloaded for you. If you want to build it yourself, read the 
-[build](#building-from-source) section.
+We currently support linux and macos on python 3.10 and above. Windows users
+should use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). This
+package wraps old fortran code, that can be tricky to get compiled, so when you
+install it, all the compiled binaries are downloaded for you. If you want to
+build it yourself, read the [build](#building-from-source) section.
 
 ## Installation
-We recomend using a virtual environment to install the package.
-Use pip, pipx, poetry, conda, or any package manager that supports
-pypi.org packages. To install with pip on the current environment:
+We recomend using a virtual environment to install the package.  Use pip, pipx,
+poetry, conda, or any package manager that supports pypi.org packages. To
+install with pip on the current environment:
 ```bash
 pip install bioacme
 ```
@@ -34,8 +34,8 @@ pip install bioacme
 SBML format of level 2 version 1 is currently supported. The `build_state_space`
 programs receive an SBML file as input, and parse all reaction network
 information, including molecular species, reactions, parameters, kinetic laws
-for each reactions, as well as the stoichiometry matrix of the network, for later
-use in enumerating the state space. 
+for each reactions, as well as the stoichiometry matrix of the network, for
+later use in enumerating the state space. 
    
 **IT IS IMPORTANT TO MAKE SURE THAT THE SBML FILE FORMAT IS VALID AND CORRECT,** 
 **IN ORDER FOR THE `build_state_space` PROGRAMS TO WORK PROPERLY.**
