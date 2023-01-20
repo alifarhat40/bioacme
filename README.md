@@ -238,7 +238,7 @@ from bioacme import (
     build_state_space_bfs,
     build_state_space_dfs,
     mxexp,
-    net2matrix,
+    net_2_matrix,
     ssor,
 )
 ```
@@ -252,11 +252,11 @@ For example, the `net2matrix` program can be called in Python in either of
 the following ways:
 
 ```python
-from bioacme import net2matrix
+from bioacme import net_2_matrix
 
-net2matrix('-m', 'mBirthDeath_P1.xml', '-s', 'states_DFS.txt', '-t', 'tm_DFS.txt')
+net_2_matrix('-m', 'mBirthDeath_P1.xml', '-s', 'states_DFS.txt', '-t', 'tm_DFS.txt')
 
-net2matrix(m='mBirthDeath_P1.xml', s='states_DFS.txt', t='tm_DFS.txt')
+net_2_matrix(m='mBirthDeath_P1.xml', s='states_DFS.txt', t='tm_DFS.txt')
 ```
 
 If the function expects input from `stdin` during the execution, the input can
