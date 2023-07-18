@@ -12,7 +12,7 @@
 *---  BEWARE: these values should match those in dgmatv.f
       integer n, nz, nmax, nzmax
       !parameter( nmax = 5000000, nzmax = 60000000 )
-      parameter( nmax =   500000, nzmax = 6000000 )
+      parameter( nmax =   500000, nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
       common /RMAT/ a, ia, ja, nz, n
