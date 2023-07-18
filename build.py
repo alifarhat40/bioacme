@@ -52,15 +52,18 @@ def build(setup_kwargs: Dict[str, Any]) -> None:
     # Run targeted build separately as poetry does not support target builds yet
     try:
         setuptools.setup(
-            **setup_kwargs, 
-            script_args = ['bdist_wheel'],
-            options = { 
-                'bdist_wheel': { 'plat_name': os.getenv('PP_PYTHON_TARGET', get_platform()) },
-                'egg_info': { 'egg_base': './dist/' }
-            }
+            **setup_kwargs,
+            script_args=["bdist_wheel"],
+            options={
+                "bdist_wheel": {
+                    "plat_name": os.getenv("PP_PYTHON_TARGET", get_platform())
+                },
+                "egg_info": {"egg_base": "./dist/"},
+            },
         )
     except BaseException as e:
         distutils_log.error(f"Failed to create targeted wheel: {e}")
+
 
 def remove_files(target_dir: Path, pattern: str) -> None:
     """Delete files matched with a glob pattern in a directory tree."""
@@ -83,3 +86,7 @@ def copy_files(src_dir: Path, dest_dir: Path, pattern: str) -> None:
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dest)
             distutils_log.info(f"copied {src} to {dest}")
+
+
+if __name__ == "__main__":
+    build({})
