@@ -12,6 +12,8 @@
 *---  BEWARE: these values should match those in dgmatv.f
       integer n, nz, nmax, nzmax
       !parameter( nmax = 5000000, nzmax = 60000000 )
+      
+*---  nzmax must match all other instances of the RMAT common block 
       parameter( nmax =   500000, nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
@@ -154,7 +156,7 @@ c---
 
 *---  set other input arguments ...
       nsteps = time/dt;
-      tol = 0.0d0
+      tol = 1d-17
       m = 30
       itrace = 0
 
@@ -170,7 +172,7 @@ c---
 
       t = 0;
       do i = 1,nsteps
-      call DGEXPV( n, m, dt,v,w, tol, anorm,
+        call DGEXPV( n, m, dt,v,w, tol, anorm,
      .             wsp,lwsp, iwsp,liwsp, dgcoov, itrace, iflag )
         do j = 1,n
           v(j) = w(j)

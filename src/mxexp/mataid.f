@@ -17,6 +17,8 @@
 *---  A is assumed here to be under the COOrdinates storage format.
 *
       integer n, nz, nzmax
+
+*---  nzmax must match all other instances of the RMAT common block 
       parameter( nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
@@ -40,6 +42,8 @@
 *---  A is assumed to be under the Compress Row Storage (CRS) format.
 *
       integer n, nz, nzmax
+      
+*---  nzmax must match all other instances of the RMAT common block 
       parameter( nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
@@ -63,6 +67,8 @@
 *---  A is assumed to be under the Compress Column Storage (CCS) format.
 *
       integer n, nz, nzmax
+      
+*---  nzmax must match all other instances of the RMAT common block 
       parameter( nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
