@@ -284,7 +284,7 @@ cmake --build build
 The built programs are located in the `bin` directory inside the `build`
 directory.
 
-### Generating python wheel package
+### Building from source + generating python wheel package
 
 The python package is built using [poetry](https://python-poetry.org/). To build
 the python package just execute `poetry build` in the root directory of the
