@@ -40,7 +40,7 @@
 *---  A is assumed to be under the Compress Row Storage (CRS) format.
 *
       integer n, nz, nzmax
-      parameter( nzmax = 600000 )
+      parameter( nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
       common /RMAT/ a, ia, ja, nz, n
@@ -63,7 +63,7 @@
 *---  A is assumed to be under the Compress Column Storage (CCS) format.
 *
       integer n, nz, nzmax
-      parameter( nzmax = 600000 )
+      parameter( nzmax = 60000000 )
       integer ia(nzmax), ja(nzmax)
       double precision a(nzmax)
       common /RMAT/ a, ia, ja, nz, n
