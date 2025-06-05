@@ -25,7 +25,7 @@ FUNC_NAMES = {
 
 
 def _run(name, args):
-    sys.exit(subprocess.call([_bin_path(name), *args]))
+    sys.exit(subprocess.call([_bin_path(name),  *args]))
 
 
 def build_state_space_bfs():
