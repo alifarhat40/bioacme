@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<sbml level="2" version="1" xmlns="http://www.sbml.org/sbml/level2">
+	<model id="clotting">
+		<listOfCompartments>
+			<compartment id="default" size="1" />
+		</listOfCompartments>
+		<listOfSpecies>
+			<species charge="0" compartment="default" id="buffer1" initialAmount="250" name="buffer1" />
+			<species charge="0" compartment="default" id="buffer2" initialAmount="250" name="buffer2" />
+			<species charge="0" compartment="default" id="GeneX" initialAmount="1" name="GeneX" />
+			<species charge="0" compartment="default" id="X" initialAmount="0" name="X" />
+			<species charge="0" compartment="default" id="GeneY" initialAmount="1" name="GeneY" />
+			<species charge="0" compartment="default" id="Y" initialAmount="0" name="Y" />
+			<species charge="0" compartment="default" id="BGeneX" initialAmount="0" name="BGeneX" />
+			<species charge="0" compartment="default" id="BGeneY" initialAmount="0" name="BGeneY" />
+		</listOfSpecies>
+		<listOfParameters>
+			<parameter id="k1" value="50" />
+			<parameter id="k2" value="20" />
+			<parameter id="k3" value="1" />
+			<parameter id="k4" value="1" />
+			<parameter id="k5" value="1e-05" />
+			<parameter id="k6" value="3.5e-05" />
+			<parameter id="k7" value="0.1" />
+			<parameter id="k8" value="0.1" />
+		</listOfParameters>
+		<listOfReactions>
+			<reaction fast="false" id="ONE" reversible="false">
+				<listOfReactants>
+					<speciesReference species="GeneX" stoichiometry="1" />
+					<speciesReference species="buffer1" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="GeneX" />
+					<speciesReference species="X" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k1 </ci>
+							<ci> GeneX </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="TWO" reversible="false">
+				<listOfReactants>
+					<speciesReference species="GeneY" stoichiometry="1" />
+					<speciesReference species="buffer2" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="GeneY" />
+					<speciesReference species="Y" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k2 </ci>
+							<ci> GeneY </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="THREE" reversible="false">
+				<listOfReactants>
+					<speciesReference species="X" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="buffer1" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k3 </ci>
+							<ci> X </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="FOUR" reversible="false">
+				<listOfReactants>
+					<speciesReference species="Y" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="buffer2" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k4 </ci>
+							<ci> Y </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="FIVE" reversible="false">
+				<listOfReactants>
+					<speciesReference species="X" stoichiometry="1" />
+					<speciesReference species="X" stoichiometry="1" />
+					<speciesReference species="GeneY" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="BGeneY" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k5 </ci>
+							<ci> X </ci>
+							<ci> GeneY </ci>
+							<apply>
+								<minus />
+								<ci> X </ci>
+								<cn> 1 </cn>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="SIX" reversible="false">
+				<listOfReactants>
+					<speciesReference species="Y" stoichiometry="1" />
+					<speciesReference species="Y" stoichiometry="1" />
+					<speciesReference species="GeneX" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="BGeneX" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k6 </ci>
+							<ci> Y </ci>
+							<ci> GeneX </ci>
+							<apply>
+								<minus />
+								<ci> Y </ci>
+								<cn> 1 </cn>
+							</apply>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="SEVEN" reversible="false">
+				<listOfReactants>
+					<speciesReference species="BGeneY" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="X" />
+					<speciesReference species="X" />
+					<speciesReference species="GeneY" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k7 </ci>
+							<ci> BGeneY </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+			<reaction fast="false" id="EIGHT" reversible="false">
+				<listOfReactants>
+					<speciesReference species="BGeneX" stoichiometry="1" />
+				</listOfReactants>
+				<listOfProducts>
+					<speciesReference species="Y" />
+					<speciesReference species="Y" />
+					<speciesReference species="GeneX" />
+				</listOfProducts>
+				<kineticLaw>
+					<math xmlns="http://www.w3.org/1998/Math/MathML">
+						<apply>
+							<times />
+							<ci> default </ci>
+							<ci> k8 </ci>
+							<ci> BGeneX </ci>
+						</apply>
+					</math>
+				</kineticLaw>
+			</reaction>
+		</listOfReactions>
+	</model>
+</sbml>

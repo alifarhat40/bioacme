@@ -1,0 +1,157 @@
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="enzyme_cascade_6species">
+
+    <listOfCompartments>
+      <compartment id="default" size="1"/>
+    </listOfCompartments>
+
+    <listOfSpecies>
+      <species id="buffer" compartment="default" initialAmount="0"/>
+      <species id="X1" compartment="default" initialAmount="0"/>
+      <species id="X2" compartment="default" initialAmount="0"/>
+      <species id="X3" compartment="default" initialAmount="0"/>
+      <species id="X4" compartment="default" initialAmount="0"/>
+      <species id="X5" compartment="default" initialAmount="0"/>
+      <species id="X6" compartment="default" initialAmount="0"/>
+    </listOfSpecies>
+
+    <listOfParameters>
+      <parameter id="ks" value="4"/>
+      <parameter id="kd" value="0.2"/>
+      <parameter id="beta" value="1"/>
+    </listOfParameters>
+
+    <listOfReactions>
+
+      <!-- Synthesis of X1 from buffer -->
+      <reaction id="synth_X1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="buffer"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="X1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> ks </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- X1 -->
+      <reaction id="X1_to_X2" reversible="false">
+        <listOfReactants><speciesReference species="X1"/></listOfReactants>
+        <listOfProducts><speciesReference species="X2"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> beta </ci><ci> X1 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="deg_X1" reversible="false">
+        <listOfReactants><speciesReference species="X1"/></listOfReactants>
+        <listOfProducts><speciesReference species="buffer"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> kd </ci><ci> X1 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- X2 -->
+      <reaction id="X2_to_X3" reversible="false">
+        <listOfReactants><speciesReference species="X2"/></listOfReactants>
+        <listOfProducts><speciesReference species="X3"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> beta </ci><ci> X2 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="deg_X2" reversible="false">
+        <listOfReactants><speciesReference species="X2"/></listOfReactants>
+        <listOfProducts><speciesReference species="buffer"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> kd </ci><ci> X2 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- X3 -->
+      <reaction id="X3_to_X4" reversible="false">
+        <listOfReactants><speciesReference species="X3"/></listOfReactants>
+        <listOfProducts><speciesReference species="X4"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> beta </ci><ci> X3 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="deg_X3" reversible="false">
+        <listOfReactants><speciesReference species="X3"/></listOfReactants>
+        <listOfProducts><speciesReference species="buffer"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> kd </ci><ci> X3 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- X4 -->
+      <reaction id="X4_to_X5" reversible="false">
+        <listOfReactants><speciesReference species="X4"/></listOfReactants>
+        <listOfProducts><speciesReference species="X5"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> beta </ci><ci> X4 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="deg_X4" reversible="false">
+        <listOfReactants><speciesReference species="X4"/></listOfReactants>
+        <listOfProducts><speciesReference species="buffer"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> kd </ci><ci> X4 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- X5 -->
+      <reaction id="X5_to_X6" reversible="false">
+        <listOfReactants><speciesReference species="X5"/></listOfReactants>
+        <listOfProducts><speciesReference species="X6"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> beta </ci><ci> X5 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="deg_X5" reversible="false">
+        <listOfReactants><speciesReference species="X5"/></listOfReactants>
+        <listOfProducts><speciesReference species="buffer"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> kd </ci><ci> X5 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- Final degradation of X6 -->
+      <reaction id="deg_X6" reversible="false">
+        <listOfReactants><speciesReference species="X6"/></listOfReactants>
+        <listOfProducts><speciesReference species="buffer"/></listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/><ci> default </ci><ci> kd </ci><ci> X6 </ci></apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+    </listOfReactions>
+  </model>
+</sbml>

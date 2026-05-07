@@ -1,0 +1,371 @@
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="ffl3_A_B_C">
+    <listOfCompartments>
+      <compartment id="default" size="1"/>
+    </listOfCompartments>
+
+    <listOfSpecies>
+      <!-- Gene A module -->
+      <species id="buffA"   name="buffA"   compartment="default" initialAmount="0" charge="0"/>
+      <species id="GeneA"   name="GeneA"   compartment="default" initialAmount="1" charge="0"/>
+      <species id="A"       name="A"       compartment="default" initialAmount="0" charge="0"/>
+
+      <!-- Gene B module -->
+      <species id="buffB"   name="buffB"   compartment="default" initialAmount="0" charge="0"/>
+      <species id="GeneB"   name="GeneB"   compartment="default" initialAmount="1" charge="0"/>
+      <species id="B"       name="B"       compartment="default" initialAmount="0" charge="0"/>
+      <species id="bGeneB"  name="bGeneB"  compartment="default" initialAmount="0" charge="0"/>
+
+      <!-- Gene C module -->
+      <species id="buffC"     name="buffC"     compartment="default" initialAmount="0" charge="0"/>
+      <species id="GeneC"     name="GeneC"     compartment="default" initialAmount="1" charge="0"/>
+      <species id="C"         name="C"         compartment="default" initialAmount="0" charge="0"/>
+      <species id="bGeneC_A"  name="bGeneC_A"  compartment="default" initialAmount="0" charge="0"/>
+      <species id="bGeneC_B"  name="bGeneC_B"  compartment="default" initialAmount="0" charge="0"/>
+    </listOfSpecies>
+
+    <listOfParameters>
+      <!-- basal synthesis rates (paper: 10 s^-1; set to 10 here) -->
+      <parameter id="sA" value="10"/>
+      <parameter id="sB" value="10"/>
+      <parameter id="sC" value="10"/>
+
+      <!-- degradation rates (paper: 1 s^-1) -->
+      <parameter id="dA" value="1"/>
+      <parameter id="dB" value="1"/>
+      <parameter id="dC" value="1"/>
+
+      <!-- regulation intensities (k1: A->B, k2: A->C, k3: B->C) -->
+      <parameter id="k1" value="3.0"/>   <!-- A -> B -->
+      <parameter id="k2" value="0.5"/>   <!-- A -> C -->
+      <parameter id="k3" value="5.0"/>   <!-- B -> C -->
+
+      <!-- binding / unbinding rates (paper: r = 0.005, f = 0.1) -->
+      <!-- A + GeneB <-> bGeneB -->
+      <parameter id="rAb" value="0.005"/>
+      <parameter id="fAb" value="0.1"/>
+
+      <!-- A + GeneC <-> bGeneC_A -->
+      <parameter id="rAc" value="0.005"/>
+      <parameter id="fAc" value="0.1"/>
+
+      <!-- B + GeneC <-> bGeneC_B -->
+      <parameter id="rBc" value="0.005"/>
+      <parameter id="fBc" value="0.1"/>
+    </listOfParameters>
+
+    <listOfReactions>
+
+      <!-- A: synthesis & degradation -->
+      <reaction id="syn_A" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="buffA" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="GeneA"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> sA </ci>
+              <ci> GeneA </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="deg_A" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="buffA" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> dA </ci>
+              <ci> A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- B: synthesis & degradation -->
+      <reaction id="syn_B_basal" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="buffB" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="GeneB"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> sB </ci>
+              <ci> GeneB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="syn_B_from_bGeneB" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="buffB" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="bGeneB"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> k1 </ci>
+              <ci> sB </ci>
+              <ci> bGeneB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="deg_B" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="B" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="buffB" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> dB </ci>
+              <ci> B </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- C: synthesis & degradation (A- and B-regulation) -->
+      <reaction id="syn_C_basal" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="buffC" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="GeneC"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> sC </ci>
+              <ci> GeneC </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- A-activated C -->
+      <reaction id="syn_C_from_bGeneC_A" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="buffC" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="bGeneC_A"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> k2 </ci>
+              <ci> sC </ci>
+              <ci> bGeneC_A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- B-activated C -->
+      <reaction id="syn_C_from_bGeneC_B" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="buffC" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="C" stoichiometry="1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="bGeneC_B"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> k3 </ci>
+              <ci> sC </ci>
+              <ci> bGeneC_B </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="deg_C" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="C" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="buffC" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> dC </ci>
+              <ci> C </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- Binding / unbinding reactions -->
+
+      <!-- A + GeneB <-> bGeneB -->
+      <reaction id="bind_A_GeneB" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1"/>
+          <speciesReference species="GeneB" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="bGeneB" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> rAb </ci>
+              <ci> A </ci>
+              <ci> GeneB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="unbind_A_GeneB" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="bGeneB" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A" stoichiometry="1"/>
+          <speciesReference species="GeneB" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> fAb </ci>
+              <ci> bGeneB </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- A + GeneC <-> bGeneC_A -->
+      <reaction id="bind_A_GeneC" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1"/>
+          <speciesReference species="GeneC" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="bGeneC_A" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> rAc </ci>
+              <ci> A </ci>
+              <ci> GeneC </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="unbind_A_GeneC" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="bGeneC_A" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="A" stoichiometry="1"/>
+          <speciesReference species="GeneC" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> fAc </ci>
+              <ci> bGeneC_A </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <!-- B + GeneC <-> bGeneC_B -->
+      <reaction id="bind_B_GeneC" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="B" stoichiometry="1"/>
+          <speciesReference species="GeneC" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="bGeneC_B" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> rBc </ci>
+              <ci> B </ci>
+              <ci> GeneC </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+      <reaction id="unbind_B_GeneC" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="bGeneC_B" stoichiometry="1"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="B" stoichiometry="1"/>
+          <speciesReference species="GeneC" stoichiometry="1"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply><times/>
+              <ci> default </ci>
+              <ci> fBc </ci>
+              <ci> bGeneC_B </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+
+    </listOfReactions>
+  </model>
+</sbml>

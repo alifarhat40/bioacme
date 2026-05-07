@@ -1,0 +1,222 @@
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="feedback_network">
+<listOfCompartments>
+<compartment id="default" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="buffX" name="buffX" compartment="default" initialAmount="0" charge="0"/>
+<species id="buffY" name="buffY" compartment="default" initialAmount="0" charge="0"/>
+<species id="GeneX" name="GeneX" compartment="default" initialAmount="0" charge="0"/>
+<species id="GeneY" name="GeneY" compartment="default" initialAmount="0" charge="0"/>
+<species id="Y2GeneX" name="Y2GeneX" compartment="default" initialAmount="0" charge="0"/>
+<species id="X2GeneY" name="X2GeneY" compartment="default" initialAmount="0" charge="0"/>
+<species id="X" name="X" compartment="default" initialAmount="0" charge="0"/>
+<species id="Y" name="Y" compartment="default" initialAmount="0" charge="0"/>
+</listOfSpecies>
+<listOfParameters>
+<parameter id="ksx" value="100"/>
+<parameter id="kdx" value="2"/>
+<parameter id="ksy" value="400"/>
+<parameter id="kdy" value="1"/>
+<parameter id="r5" value="0.001"/>
+<parameter id="r6" value="0.001"/>
+<parameter id="ku7" value="0.1"/>
+<parameter id="ku8" value="1"/>
+<parameter id="r9" value="300"/>
+</listOfParameters>
+<listOfReactions>
+<reaction id="re1" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="buffX" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="X" stoichiometry="1"/>
+</listOfProducts>
+<listOfModifiers>
+<modifierSpeciesReference species="GeneX" />
+</listOfModifiers>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> ksx </ci>
+<ci> GeneX </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re2" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="X" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="buffX" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> kdx </ci>
+<ci> X </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re3" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="buffY" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Y" stoichiometry="1"/>
+</listOfProducts>
+<listOfModifiers>
+<modifierSpeciesReference species="GeneY" />
+</listOfModifiers>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> ksy </ci>
+<ci> GeneY </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re4" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Y" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="buffY" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> kdy </ci>
+<ci> Y </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re5" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Y" stoichiometry="2"/>
+<speciesReference species="GeneX" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Y2GeneX" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> r5 </ci>
+<ci> GeneX </ci>
+<apply>
+<divide/>
+<apply>
+<times/>
+<ci>Y</ci>
+<apply>
+<minus/>
+<ci>Y</ci>
+<cn>1</cn>
+</apply>
+</apply>
+<cn>2</cn>
+</apply>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re6" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="X" stoichiometry="2"/>
+<speciesReference species="GeneY" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="X2GeneY" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> r6 </ci>
+<ci> GeneY </ci>
+<apply>
+<divide/>
+<apply>
+<times/>
+<ci>X</ci>
+<apply>
+<minus/>
+<ci>X</ci>
+<cn>1</cn>
+</apply>
+</apply>
+<cn>2</cn>
+</apply>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re7" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="Y2GeneX" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="Y" stoichiometry="2"/>
+<speciesReference species="GeneX" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> ku7 </ci>
+<ci> Y2GeneX </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re8" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="X2GeneY" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="X" stoichiometry="2"/>
+<speciesReference species="GeneY" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> ku8 </ci>
+<ci> X2GeneY </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re9" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="buffX" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="X" stoichiometry="1"/>
+</listOfProducts>
+<listOfModifiers>
+<modifierSpeciesReference species="Y2GeneX" />
+</listOfModifiers>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> r9 </ci>
+<ci> Y2GeneX </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>

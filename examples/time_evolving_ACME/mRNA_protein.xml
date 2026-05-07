@@ -1,0 +1,96 @@
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="mRNA_protein">
+<listOfCompartments>
+<compartment id="default" size="1"/>
+</listOfCompartments>
+<listOfSpecies>
+<species id="buff1" name="buff1" compartment="default" initialAmount="0" charge="0"/>
+<species id="buff2" name="buff2" compartment="default" initialAmount="0" charge="0"/>
+<species id="Gene" name="Gene" compartment="default" initialAmount="0" charge="0"/>
+<species id="mRNA" name="mRNA" compartment="default" initialAmount="0" charge="0"/>
+<species id="protein" name="protein" compartment="default" initialAmount="0" charge="0"/>
+</listOfSpecies>
+<listOfParameters>
+<parameter id="ke" value="5"/>
+<parameter id="kt" value="0.1"/>
+<parameter id="km" value="0.1"/>
+<parameter id="kd" value="0.01"/>
+</listOfParameters>
+<listOfReactions>
+<reaction id="re1" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="buff1" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="mRNA" stoichiometry="1"/>
+</listOfProducts>
+<listOfModifiers>
+<modifierSpeciesReference species="Gene" />
+</listOfModifiers>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> ke </ci>
+<ci> Gene </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re2" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="buff2" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="protein" stoichiometry="1"/>
+</listOfProducts>
+<listOfModifiers>
+<modifierSpeciesReference species="mRNA" />
+</listOfModifiers>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> kt </ci>
+<ci> mRNA </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re3" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="mRNA" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="buff1" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> km </ci>
+<ci> mRNA </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+<reaction id="re4" reversible="false" fast="false">
+<listOfReactants>
+<speciesReference species="protein" stoichiometry="1"/>
+</listOfReactants>
+<listOfProducts>
+<speciesReference species="buff2" stoichiometry="1"/>
+</listOfProducts>
+<kineticLaw><math xmlns="http://www.w3.org/1998/Math/MathML">
+<apply>
+<times/>
+<ci> default </ci>
+<ci> kd </ci>
+<ci> protein </ci>
+</apply>
+</math>
+</kineticLaw>
+</reaction>
+</listOfReactions>
+</model>
+</sbml>
